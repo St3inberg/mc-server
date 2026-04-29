@@ -1,0 +1,14 @@
+node_modules/
+.next/
+.env
+.env.local
+*.db
+*.db-wal
+*.db-shm
+data/
+minecraft/
+*.log
+.DS_Store
+.claude/
+.agents/
+skills-lock.json

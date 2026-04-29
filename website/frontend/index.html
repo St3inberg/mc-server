@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NetzTech — Minecraft Server</title>
+  <meta name="description" content="NetzTech Minecraft Server — Custom game modes, unique challenges, and a thriving community.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <nav>
+    <a href="/" class="nav-logo"><i class="fa-solid fa-bolt"></i> NetzTech</a>
+    <ul class="nav-links">
+      <li><a href="/" class="active">Home</a></li>
+      <li><a href="/store.html">Store</a></li>
+    </ul>
+    <div class="nav-actions" id="nav-actions"></div>
+  </nav>
+
+  <section class="hero">
+    <h1>Welcome to <span>NetzTech</span></h1>
+    <p>Experience custom game modes, unique challenges, and a community unlike any other. Join us today.</p>
+    <div class="hero-actions">
+      <a href="/store.html" class="btn btn-primary btn-lg">View Store</a>
+      <div class="server-ip" onclick="copyIP()" id="ip-box" title="Click to copy IP">
+        <i class="fa-solid fa-server"></i>
+        <span id="ip-text">play.playnetztech.xyz</span>
+        <span id="ip-hint" style="font-size:0.75rem;color:var(--text-muted)">Copy IP</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="section-title">
+      <h2>Why NetzTech?</h2>
+      <p>More than just a Minecraft server</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-gamepad"></i></div>
+        <h3>Custom Game Modes</h3>
+        <p>Unique experiences you won't find anywhere else — from custom survival challenges to competitive minigames built from the ground up.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
+        <h3>High Performance</h3>
+        <p>Optimized Paper server with tuned JVM flags and smart chunk management. Minimal lag, maximum fun.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3>Anti-Cheat & Moderation</h3>
+        <p>Robust protection keeps the game fair and the community safe. Active staff and automated systems working together.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-users"></i></div>
+        <h3>Active Community</h3>
+        <p>Regular events, tournaments, and giveaways. Join a growing community of passionate players.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-gift"></i></div>
+        <h3>Cosmetic Perks</h3>
+        <p>Support the server and unlock exclusive chat colors, titles, and cosmetic effects. Always fair — perks never affect gameplay.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-lock"></i></div>
+        <h3>Secure & Reliable</h3>
+        <p>Daily backups, DDoS protection, and a dedicated admin team. Your progress is always safe.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="text-align:center;padding:5rem 2rem;background:linear-gradient(180deg,var(--bg) 0%,#0d0d20 100%)">
+    <h2 style="font-size:2rem;font-weight:800;margin-bottom:1rem">Ready to join?</h2>
+    <p style="color:var(--text-muted);margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto">
+      Create an account to unlock supporter perks, track your purchases, and become part of the NetzTech community.
+    </p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <a href="/register.html" class="btn btn-primary btn-lg">Create Account</a>
+      <a href="/store.html" class="btn btn-secondary btn-lg">View Store</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 NetzTech &nbsp;·&nbsp; <a href="/store.html">Store</a> &nbsp;·&nbsp; <a href="/login.html">Login</a> &nbsp;·&nbsp; <a href="/register.html">Register</a></p>
+    <p class="footer-eula">All supporter perks are cosmetic and do not affect core gameplay, in compliance with Mojang's EULA.</p>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    function copyIP() {
+      const ip = document.getElementById('ip-text').textContent;
+      navigator.clipboard.writeText(ip).then(() => {
+        const hint = document.getElementById('ip-hint');
+        hint.textContent = 'Copied!';
+        hint.style.color = 'var(--accent)';
+        setTimeout(() => { hint.textContent = 'Copy IP'; hint.style.color = ''; }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
