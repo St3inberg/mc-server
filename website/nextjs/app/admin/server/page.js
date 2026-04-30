@@ -209,8 +209,11 @@ export default function ServerPage() {
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {plugins.plugins.map(p => (
               <div key={p.name} className="flex items-center gap-2.5 p-3 rounded-lg bg-white/[0.02] border border-white/[0.04]">
-                <div className="w-2 h-2 rounded-full shrink-0 bg-accent" />
-                <span className="text-sm font-semibold text-white truncate">{p.name}</span>
+                <div className={`w-2 h-2 rounded-full shrink-0 ${p.enabled ? 'bg-accent' : 'bg-red-500'}`} />
+                <div className="min-w-0">
+                  <span className="text-sm font-semibold text-white truncate block">{p.name}</span>
+                  {!p.enabled && <span className="text-xs text-red-400/70">disabled</span>}
+                </div>
               </div>
             ))}
           </div>
