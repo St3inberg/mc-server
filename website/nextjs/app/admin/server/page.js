@@ -24,13 +24,17 @@ export default function ServerPage() {
   const [restarting, setRestarting] = useState(false);
   const [backingUp, setBackingUp]   = useState(false);
   const [actionMsg, setActionMsg]   = useState(null);
+  const [plugins, setPlugins]       = useState(null);
   const fileRef = useRef(null);
   const logRef  = useRef(null);
 
   function loadStatus() {
     apiFetch('/admin/server/status').then(r => r?.json()).then(s => { if (s) setStatus(s); });
   }
-  useEffect(() => { loadStatus(); const t = setInterval(loadStatus, 15000); return () => clearInterval(t); }, []);
+  function loadPlugins() {
+    apiFetch('/admin/server/plugins').then(r => r?.json()).then(d => { if (d) setPlugins(d); });
+  }
+  useEffect(() => { loadStatus(); loadPlugins(); const t = setInterval(loadStatus, 15000); return () => clearInterval(t); }, []);
   useEffect(() => { if (logRef.current) logRef.current.scrollTop = logRef.current.scrollHeight; }, [log]);
 
   async function sendCmd(command) {
@@ -189,29 +193,32 @@ export default function ServerPage() {
 
       {/* Plugins status */}
       <div className="card p-5">
-        <h2 className="font-bold text-white mb-1">Installed Plugins</h2>
-        <p className="text-white/40 text-xs mb-4">Run <code className="text-accent/60">plugins</code> in the console to see the live list.</p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-          {[
-            { name: 'LuckPerms',   status: 'installed', desc: 'Permissions & ranks' },
-            { name: 'spark',       status: 'installed', desc: 'Performance profiler' },
-            { name: 'EssentialsX', status: 'missing',   desc: 'Core commands (/home, /warp…)' },
-            { name: 'WorldEdit',   status: 'missing',   desc: 'World editing' },
-            { name: 'WorldGuard',  status: 'missing',   desc: 'Region protection' },
-            { name: 'Factions',    status: 'missing',   desc: 'Factions game mode' },
-            { name: 'BedWars',     status: 'missing',   desc: 'BedWars mini-game' },
-            { name: 'SkyBlock',    status: 'missing',   desc: 'SkyBlock game mode' },
-          ].map(p => (
-            <div key={p.name} className="flex items-start gap-2.5 p-3 rounded-lg bg-white/[0.02] border border-white/[0.04]">
-              <div className={`w-2 h-2 rounded-full mt-1.5 shrink-0 ${p.status === 'installed' ? 'bg-accent' : 'bg-white/20'}`} />
-              <div>
-                <div className={`text-sm font-semibold ${p.status === 'installed' ? 'text-white' : 'text-white/35'}`}>{p.name}</div>
-                <div className="text-white/25 text-xs">{p.desc}</div>
-              </div>
-            </div>
-          ))}
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h2 className="font-bold text-white">Installed Plugins</h2>
+            {plugins?.count != null && (
+              <p className="text-white/40 text-xs mt-0.5">{plugins.count} plugin{plugins.count !== 1 ? 's' : ''} loaded</p>
+            )}
+          </div>
+          <button onClick={loadPlugins} className="btn btn-ghost btn-sm text-xs">Refresh</button>
         </div>
-        <p className="text-white/20 text-xs mt-4">Missing plugins need to be installed manually — ask me to download and install them.</p>
+
+        {plugins?.error ? (
+          <p className="text-white/30 text-sm">Server offline — start the server to see plugins.</p>
+        ) : plugins?.plugins?.length > 0 ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {plugins.plugins.map(p => (
+              <div key={p.name} className="flex items-center gap-2.5 p-3 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+                <div className="w-2 h-2 rounded-full shrink-0 bg-accent" />
+                <span className="text-sm font-semibold text-white truncate">{p.name}</span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex items-center justify-center h-12">
+            <div className="w-4 h-4 rounded-full border-2 border-accent border-t-transparent animate-spin" />
+          </div>
+        )}
       </div>
 
       {/* World upload */}
