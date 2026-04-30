@@ -18,4 +18,7 @@ export function validateEnv() {
   if (process.env.STRIPE_SECRET_KEY.startsWith('sk_test_') && process.env.NODE_ENV === 'production') {
     console.warn('[startup] WARNING: using Stripe test key in production');
   }
+  if (!process.env.RESEND_API_KEY) {
+    console.warn('[startup] WARNING: RESEND_API_KEY not set — password reset emails will not be sent');
+  }
 }

@@ -52,7 +52,12 @@ export default function LoginPage() {
               onChange={e => setForm(f => ({ ...f, email: e.target.value }))} required />
           </div>
           <div>
-            <label className="label">Password</label>
+            <div className="flex items-center justify-between mb-1">
+              <label className="label !mb-0">Password</label>
+              <Link href="/forgot-password" className="text-xs text-white/30 hover:text-accent transition-colors">
+                Forgot password?
+              </Link>
+            </div>
             <input className="input" type="password" placeholder="••••••••" value={form.password}
               onChange={e => setForm(f => ({ ...f, password: e.target.value }))} required />
           </div>
