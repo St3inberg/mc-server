@@ -7,6 +7,11 @@ db.pragma('journal_mode = WAL');
 db.pragma('foreign_keys = ON');
 
 db.exec(`
+  CREATE TABLE IF NOT EXISTS site_settings (
+    key TEXT PRIMARY KEY,
+    value TEXT NOT NULL
+  );
+
   CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     minecraft_username TEXT UNIQUE NOT NULL COLLATE NOCASE,
@@ -59,6 +64,28 @@ db.exec(`
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
 `);
+
+// Seed default site settings
+const settingCount = db.prepare('SELECT COUNT(*) as c FROM site_settings').get().c;
+if (settingCount === 0) {
+  const setSetting = db.prepare('INSERT OR IGNORE INTO site_settings (key, value) VALUES (?, ?)');
+  setSetting.run('server_ip', 'play.playnetztech.xyz');
+  setSetting.run('hero_badge', 'Server Online — Join Now');
+  setSetting.run('hero_heading', 'The Ultimate Minecraft Server');
+  setSetting.run('hero_subtitle', 'Survival, PvP, Factions and more — all on one high-performance server. Buy ranks, support the community, and dominate the leaderboards.');
+  setSetting.run('features_heading', 'Why NetzTech?');
+  setSetting.run('features_subtitle', 'Built from the ground up for a premium Minecraft experience.');
+  setSetting.run('features', JSON.stringify([
+    { icon: 'sword',   title: 'PvP Arenas',    desc: 'Ranked competitive combat with seasonal leaderboards and exclusive rewards.',                    color: '#ff5555' },
+    { icon: 'mountain',title: 'Survival World', desc: 'Massive custom-generated world with dungeons, hidden biomes, and rare loot.',                   color: '#55ff55' },
+    { icon: 'flag',    title: 'Factions',       desc: 'Build your empire, raid enemies, and claim territory across the map.',                          color: '#ffaa00' },
+    { icon: 'layers',  title: 'Mini-Games',     desc: 'BedWars, SkyBlock, Spleef and more — updated every season.',                                   color: '#55ffff' },
+    { icon: 'shield',  title: 'Anti-Cheat',     desc: 'Advanced protection system keeps gameplay fair for every player.',                              color: '#00ff88' },
+    { icon: 'zap',     title: 'Low Latency',    desc: 'High-performance hardware keeps TPS at 20 even during peak hours.',                            color: '#aa55ff' },
+  ]));
+  setSetting.run('cta_title', 'Ready to play?');
+  setSetting.run('cta_subtitle', 'Join thousands of players. Buy a rank to unlock exclusive perks and support the server.');
+}
 
 const productCount = db.prepare('SELECT COUNT(*) as c FROM products').get().c;
 if (productCount === 0) {

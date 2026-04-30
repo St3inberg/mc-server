@@ -3,13 +3,14 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { getToken, getUser, clearAuth } from '@/lib/client-auth';
-import { IconGrid, IconUsers, IconServer, IconPackage, IconArrowLeft, IconLogOut, IconStar } from '@/components/Icons';
+import { IconGrid, IconUsers, IconServer, IconPackage, IconArrowLeft, IconLogOut, IconStar, IconSettings } from '@/components/Icons';
 
 const NAV = [
-  { href: '/admin',          label: 'Overview', Icon: IconGrid    },
-  { href: '/admin/players',  label: 'Players',  Icon: IconUsers   },
-  { href: '/admin/server',   label: 'Server',   Icon: IconServer  },
-  { href: '/admin/products', label: 'Products', Icon: IconPackage },
+  { href: '/admin',           label: 'Overview',  Icon: IconGrid     },
+  { href: '/admin/players',   label: 'Players',   Icon: IconUsers    },
+  { href: '/admin/server',    label: 'Server',    Icon: IconServer   },
+  { href: '/admin/products',  label: 'Products',  Icon: IconPackage  },
+  { href: '/admin/settings',  label: 'Site Content', Icon: IconSettings },
 ];
 
 export default function AdminLayout({ children }) {
