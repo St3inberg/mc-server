@@ -2,7 +2,30 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { getToken, getUser, apiFetch } from '@/lib/client-auth';
+import { getToken, apiFetch } from '@/lib/client-auth';
+import { IconCheck, IconClock, IconRefresh, IconCreditCard } from '@/components/Icons';
+
+function StatusBadge({ applied }) {
+  return applied ? (
+    <span className="badge-active flex items-center gap-1">
+      <IconCheck size={11} /> Active
+    </span>
+  ) : (
+    <span className="badge-pending flex items-center gap-1">
+      <IconClock size={11} /> Pending
+    </span>
+  );
+}
+
+function BillingBadge({ type }) {
+  const recurring = type === 'monthly' || type === 'yearly';
+  return (
+    <span className="inline-flex items-center gap-1 text-white/50 text-xs">
+      {recurring ? <IconRefresh size={11} /> : <IconCreditCard size={11} />}
+      {type?.replace('_', '-') || 'one-time'}
+    </span>
+  );
+}
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -11,39 +34,51 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (!getToken()) { router.push('/login'); return; }
-    apiFetch('/dashboard').then(r => r?.json()).then(d => { if (d) { setData(d); setLoading(false); } });
+    apiFetch('/dashboard').then(r => r?.json()).then(d => {
+      if (d) { setData(d); setLoading(false); }
+    });
   }, []);
 
-  if (loading) return <main className="page flex items-center justify-center"><div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" /></main>;
+  if (loading) return (
+    <main className="page flex items-center justify-center min-h-[60vh]">
+      <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" />
+    </main>
+  );
   if (!data) return null;
 
   const { user, purchases } = data;
   const activeCount = purchases.filter(p => p.perks_applied).length;
+  const totalSpent = purchases.reduce((s, p) => s + (p.amount_paid_cents || 0), 0);
 
   return (
     <main className="page">
-      <div className="mb-10">
-        <h1 className="text-3xl font-black text-white">Welcome back, <span className="text-accent">{user.minecraft_username}</span></h1>
+      {/* Header */}
+      <div className="mb-10 animate-fade-in-up">
+        <h1 className="text-3xl font-black text-white">
+          Welcome back, <span className="text-accent">{user.minecraft_username}</span>
+        </h1>
         <p className="text-white/40 text-sm mt-1">{user.email}</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-        <div className="stat-card">
+      {/* Stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 animate-fade-in-up anim-delay-1">
+        <div className="stat-card card-lift">
           <div className="stat-label">Active Perks</div>
           <div className="stat-value text-accent">{activeCount}</div>
         </div>
-        <div className="stat-card">
+        <div className="stat-card card-lift">
           <div className="stat-label">Total Purchases</div>
           <div className="stat-value">{purchases.length}</div>
         </div>
-        <div className="stat-card">
+        <div className="stat-card card-lift">
           <div className="stat-label">Total Spent</div>
-          <div className="stat-value">${purchases.reduce((s, p) => s, 0).toFixed(2)}</div>
+          <div className="stat-value">${(totalSpent / 100).toFixed(2)}</div>
         </div>
       </div>
 
-      <div className="table-wrap">
-        <div className="flex items-center justify-between px-4 py-4 border-b border-white/[0.06]">
+      {/* Purchases */}
+      <div className="table-wrap animate-fade-in-up anim-delay-2">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.06]">
           <h2 className="font-bold text-white">Your Purchases</h2>
           <Link href="/store" className="btn btn-primary btn-sm">Browse Store</Link>
         </div>
@@ -60,7 +95,7 @@ export default function DashboardPage() {
                 <tr>
                   <th>Package</th>
                   <th>Status</th>
-                  <th>Type</th>
+                  <th>Billing</th>
                   <th>Expires</th>
                   <th>Purchased</th>
                 </tr>
@@ -69,12 +104,8 @@ export default function DashboardPage() {
                 {purchases.map(p => (
                   <tr key={p.id}>
                     <td className="font-bold" style={{ color: p.color }}>{p.product_name}</td>
-                    <td>
-                      <span className={p.perks_applied ? 'badge-active' : 'badge-pending'}>
-                        {p.perks_applied ? '✓ Active' : '⏳ Pending'}
-                      </span>
-                    </td>
-                    <td className="text-white/50 capitalize">{p.billing_type?.replace('_', ' ') || 'one-time'}</td>
+                    <td><StatusBadge applied={p.perks_applied} /></td>
+                    <td><BillingBadge type={p.billing_type} /></td>
                     <td className="text-white/50">{p.expires_at ? new Date(p.expires_at).toLocaleDateString() : '—'}</td>
                     <td className="text-white/50">{new Date(p.created_at).toLocaleDateString()}</td>
                   </tr>

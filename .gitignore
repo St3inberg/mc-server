@@ -12,3 +12,4 @@ minecraft/
 .claude/
 .agents/
 skills-lock.json
+*.txt

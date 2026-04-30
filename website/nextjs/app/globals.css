@@ -190,3 +190,93 @@ body {
 
 /* Rank color utilities */
 .rank-card-border { border: 1px solid; }
+
+/* ── Particles ─────────────────────────────────────────── */
+.particle-dot {
+  position: absolute;
+  border-radius: 50%;
+  animation: particleRise linear infinite;
+}
+
+.particle-star {
+  position: absolute;
+  border-radius: 1px;
+  animation: particleRise linear infinite;
+  transform-origin: center;
+}
+
+@keyframes particleRise {
+  0%   { transform: translateY(0)      translateX(0)               rotate(0deg)   scale(0);   opacity: 0; }
+  8%   { transform: translateY(-8vh)   translateX(calc(var(--drift) * 0.1))  rotate(30deg)  scale(1);   opacity: 1; }
+  60%  { opacity: 0.7; }
+  100% { transform: translateY(-105vh) translateX(var(--drift))    rotate(360deg) scale(0.4); opacity: 0; }
+}
+
+/* ── Page entrance animations ───────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes glowPulse {
+  0%, 100% { text-shadow: 0 0 20px rgba(0,255,136,0.3); }
+  50%       { text-shadow: 0 0 40px rgba(0,255,136,0.6), 0 0 80px rgba(0,255,136,0.2); }
+}
+
+@keyframes borderGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,255,136,0); }
+  50%       { box-shadow: 0 0 20px 2px rgba(0,255,136,0.15); }
+}
+
+.animate-fade-in-up { animation: fadeInUp 0.6s ease both; }
+.animate-fade-in    { animation: fadeIn   0.4s ease both; }
+.animate-scale-in   { animation: scaleIn  0.5s ease both; }
+
+.anim-delay-1 { animation-delay: 0.1s; }
+.anim-delay-2 { animation-delay: 0.2s; }
+.anim-delay-3 { animation-delay: 0.3s; }
+.anim-delay-4 { animation-delay: 0.4s; }
+.anim-delay-5 { animation-delay: 0.5s; }
+.anim-delay-6 { animation-delay: 0.6s; }
+
+.glow-text-animated {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+.border-glow-animated {
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+/* Shimmer text effect */
+.shimmer-text {
+  background: linear-gradient(90deg, #00ff88 0%, #ffffff 30%, #00ff88 60%, #55ffff 80%, #00ff88 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* Card hover lift */
+.card-lift {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
