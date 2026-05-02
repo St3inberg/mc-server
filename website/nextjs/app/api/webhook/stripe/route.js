@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import db from '@/lib/db.js';
 import { applyPerks } from '@/lib/rcon.js';
+import { purchaseEmail } from '@/lib/notify.js';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -44,6 +45,13 @@ async function handleSessionCompleted(session) {
 
   const commands = JSON.parse(product.commands || '[]');
   if (commands.length > 0) await applyPerks(purchase.id, user.minecraft_username, commands);
+
+  await purchaseEmail({
+    username: user.minecraft_username,
+    productName: product.name,
+    amount: purchase.amount_paid_cents,
+    billing: product.billing_type,
+  });
 }
 
 async function handleInvoicePaid(invoice) {

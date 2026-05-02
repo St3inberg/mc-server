@@ -4,6 +4,14 @@
 # - DB + ranks + configs: pushed to GitHub backups branch
 set -e
 
+notify_failure() {
+  curl -s -X POST "http://localhost:3000/api/notify" \
+    -H "Content-Type: application/json" \
+    -d "{\"secret\":\"$NOTIFY_SECRET\",\"event\":\"backup_failed\",\"error\":\"$1\"}" \
+    > /dev/null 2>&1 || true
+}
+trap 'notify_failure "Backup script exited with error at line $LINENO"' ERR
+
 REPO_DIR=/home/azureuser/mc-server
 BACKUP_DIR=/home/azureuser/mc-server-backups
 TIMESTAMP=$(date +%Y-%m-%d_%H-%M)
