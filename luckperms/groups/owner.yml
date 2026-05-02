@@ -1,0 +1,30 @@
+inherits:
+- mvp
+metadata:
+  prefix: '&4&l[Owner]&r '
+  suffix: ''
+name: owner
+permissions:
+- permission: essentials.nick
+  value: true
+- permission: essentials.fly
+  value: true
+- permission: essentials.gamemode
+  value: true
+- permission: essentials.tp
+  value: true
+- permission: essentials.tphere
+  value: true
+- permission: essentials.vanish
+  value: true
+- permission: essentials.invsee
+  value: true
+- permission: essentials.kick
+  value: true
+- permission: essentials.ban
+  value: true
+- permission: '*'
+  value: true
+- permission: cosmetics.trail.flame
+  value: true
+weight: 100

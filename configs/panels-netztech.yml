@@ -1,0 +1,77 @@
+netztech:
+  items:
+    '10':
+      commands:
+      - mvtp world
+      lore:
+      - '&7Classic survival,'
+      - '&7build and explore!'
+      - ''
+      - '&eClick to play!'
+      material: OAK_LOG
+      name: '&e&lSurvival'
+    '11':
+      commands:
+      - bw join
+      lore:
+      - '&7Protect your bed and'
+      - '&7destroy the others!'
+      - ''
+      - '&eClick to play!'
+      material: RED_BED
+      name: '&c&lBedWars'
+    '13':
+      commands:
+      - island
+      lore:
+      - '&7Build your island,'
+      - '&7survive and thrive!'
+      - ''
+      - '&eClick to play!'
+      material: GRASS_BLOCK
+      name: '&a&lSkyBlock'
+    '15':
+      commands:
+      - mvtp world
+      - msg %cp-player% &6Use &e/f help &6to join or create a faction!
+      lore:
+      - '&7Raid, claim land,'
+      - '&7and dominate!'
+      - ''
+      - '&eClick to play!'
+      material: IRON_SWORD
+      name: '&6&lFactions'
+    '16':
+      commands:
+      - msg %cp-player% &7Coming soon!
+      lore:
+      - '&7View top players'
+      - '&7across all gamemodes.'
+      - ''
+      - '&eClick to view!'
+      material: BOOK
+      name: '&d&lLeaderboards'
+    '22':
+      commands:
+      - 'msg %cp-player% &bShop: playnetztech.xyz/store'
+      lore:
+      - '&7Ranks, perks & more'
+      - '&bplaynetztech.xyz/store'
+      - ''
+      - '&eClick for info!'
+      material: NETHER_STAR
+      name: '&b&lStore'
+    '4':
+      commands:
+      - mvtp lobby
+      lore:
+      - '&7Return to the main lobby'
+      material: NETHER_STAR
+      name: '&f&lLobby'
+  open-command: menu
+  open-with-item:
+    enabled: false
+    material: COMPASS
+    slot: any
+  rows: 3
+  title: '&8&l✦ NetzTech Games'

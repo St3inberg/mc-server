@@ -1,0 +1,131 @@
+
+# Force correct gamemode and give menu item on join/world change/respawn
+on join:
+    wait 2 ticks
+    if player's world is world "lobby":
+        set player's gamemode to adventure
+        set player's fly mode to false
+        send "&8[&bNetzTech&8] &7Welcome, &b%player%&7! Right-click your &bGame Menu &7item to choose a gamemode." to player
+        if player's inventory doesn't contain blaze rod:
+            give player 1 blaze rod named "&b&lGame Menu" with lore "&7Right-click to open!"
+
+on world change:
+    wait 1 tick
+    if event-world is world "lobby":
+        set player's gamemode to adventure
+        set player's fly mode to false
+        if player's inventory doesn't contain blaze rod:
+            give player 1 blaze rod named "&b&lGame Menu" with lore "&7Right-click to open!"
+    else:
+        remove blaze rod from player's inventory
+        if event-world is world "world":
+            set player's gamemode to survival
+            set player's fly mode to false
+        else if event-world is world "bskyblock_world":
+            set player's gamemode to survival
+            set player's fly mode to false
+
+on respawn:
+    wait 2 ticks
+    if player's world is world "lobby":
+        set player's gamemode to adventure
+        set player's fly mode to false
+        if player's inventory doesn't contain blaze rod:
+            give player 1 blaze rod named "&b&lGame Menu" with lore "&7Right-click to open!"
+
+# Prevent dropping the menu item in lobby
+on drop:
+    if player's world is world "lobby":
+        if event-item is blaze rod:
+            cancel event
+
+# Open game selector GUI when right-clicking menu item in lobby
+on right click:
+    if player's world is world "lobby":
+        if player is holding a blaze rod:
+            cancel event
+            open chest inventory with 3 rows named "&8&l[ NetzTech Games ]" to player
+            wait 1 tick
+            set {_i} to nether star named "&f&lLobby"
+            set lore of {_i} to "&7Return to the main lobby"
+            set slot 4 of player's current inventory to {_i}
+            set {_i} to oak log named "&e&lSurvival"
+            set lore of {_i} to "&7Classic survival," and "&7build and explore!" and "" and "&eClick to play!"
+            set slot 10 of player's current inventory to {_i}
+            set {_i} to red bed named "&c&lBedWars"
+            set lore of {_i} to "&7Protect your bed and" and "&7destroy the others!" and "" and "&eClick to play!"
+            set slot 11 of player's current inventory to {_i}
+            set {_i} to grass block named "&a&lSkyBlock"
+            set lore of {_i} to "&7Build your island," and "&7survive and thrive!" and "" and "&eClick to play!"
+            set slot 13 of player's current inventory to {_i}
+            set {_i} to iron sword named "&6&lFactions"
+            set lore of {_i} to "&7Raid, claim land," and "&7and dominate!" and "" and "&eClick to play!"
+            set slot 15 of player's current inventory to {_i}
+            set {_i} to book named "&d&lLeaderboards"
+            set lore of {_i} to "&7Coming soon!"
+            set slot 16 of player's current inventory to {_i}
+            set {_i} to nether star named "&b&lStore"
+            set lore of {_i} to "&7Ranks, perks & more" and "&bplaynetztech.xyz/store" and "" and "&eClick for info!"
+            set slot 22 of player's current inventory to {_i}
+
+# Cosmetic trails in lobby - permission based so any rank or store purchase can grant one
+# cosmetics.trail.flame  - flame trail (owner)
+# cosmetics.trail.hearts - heart particles (VIP+/store)
+# cosmetics.trail.enchant - enchant glyphs (MVP/store)
+# cosmetics.trail.magic  - witch magic (VIP/store)
+on player move:
+    if player's world is world "lobby":
+        if player has permission "cosmetics.trail.flame":
+            play flame particle at player's location
+            play flame particle at player's location
+        else if player has permission "cosmetics.trail.note":
+            play note particle at player's location
+            play note particle at player's location
+        else if player has permission "cosmetics.trail.hearts":
+            play heart particle at player's location
+            play heart particle at player's location
+        else if player has permission "cosmetics.trail.portal":
+            play portal particle at player's location
+            play portal particle at player's location
+
+# /lobby and /hub commands to return to lobby from any world
+command /lobby:
+    trigger:
+        if player's world is world "lobby":
+            send "&7You are already in the lobby!" to player
+            stop
+        execute console command "mvtp %player% lobby"
+
+command /hub:
+    trigger:
+        if player's world is world "lobby":
+            send "&7You are already in the lobby!" to player
+            stop
+        execute console command "mvtp %player% lobby"
+
+# Handle clicks inside the game selector GUI
+on inventory click:
+    if name of player's current inventory contains "NetzTech Games":
+        cancel event
+        if event-slot is air:
+            stop
+        set {_n} to name of event-slot
+        if {_n} contains "Lobby":
+            close player's inventory
+            make player execute command "mvtp lobby"
+        else if {_n} contains "Survival":
+            close player's inventory
+            make player execute command "mvtp world"
+        else if {_n} contains "BedWars":
+            close player's inventory
+            make player execute command "bw join"
+        else if {_n} contains "SkyBlock":
+            close player's inventory
+            make player execute command "island"
+        else if {_n} contains "Factions":
+            close player's inventory
+            make player execute command "mvtp world"
+            send "&6Use &e/f help &6to join or create a faction!" to player
+        else if {_n} contains "Store":
+            close player's inventory
+            send "&bShop: &fplaynetztech.xyz/store" to player

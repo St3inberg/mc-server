@@ -1,0 +1,24 @@
+inherits:
+- default
+metadata:
+  prefix: '&3[MVP]&r '
+  suffix: ''
+name: mvp
+permissions:
+- permission: essentials.nick
+  value: true
+- permission: essentials.sethome
+  value: true
+- permission: essentials.sethome.multiple
+  value: true
+- permission: essentials.sethome.multiple.mvp
+  value: true
+- permission: essentials.chat.color
+  value: true
+- permission: essentials.chat.format
+  value: true
+- permission: essentials.joinfullserver
+  value: true
+- permission: cosmetics.trail.note
+  value: true
+weight: 30

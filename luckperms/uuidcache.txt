@@ -1,0 +1,2 @@
+# LuckPerms UUID lookup cache
+68358c34-f3a4-406e-bd23-5bb6e58e2e81:Copuchento

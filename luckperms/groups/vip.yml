@@ -1,0 +1,20 @@
+inherits:
+- default
+metadata:
+  prefix: '&a[VIP]&r '
+  suffix: ''
+name: vip
+permissions:
+- permission: essentials.nick
+  value: true
+- permission: essentials.sethome
+  value: true
+- permission: essentials.sethome.multiple
+  value: true
+- permission: essentials.sethome.multiple.vip
+  value: true
+- permission: essentials.chat.color
+  value: true
+- permission: cosmetics.trail.portal
+  value: true
+weight: 10

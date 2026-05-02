@@ -1,0 +1,38 @@
+name: default
+permissions:
+- permission: essentials.help
+  value: true
+- permission: essentials.spawn
+  value: true
+- permission: essentials.sethome
+  value: true
+- permission: essentials.home
+  value: true
+- permission: essentials.home.others
+  value: false
+- permission: essentials.delhome
+  value: true
+- permission: essentials.tpa
+  value: true
+- permission: essentials.tpaccept
+  value: true
+- permission: essentials.tpdeny
+  value: true
+- permission: essentials.msg
+  value: true
+- permission: essentials.reply
+  value: true
+- permission: essentials.list
+  value: true
+- permission: essentials.motd
+  value: true
+- permission: essentials.rules
+  value: true
+- permission: essentials.lobby
+  value: true
+- permission: essentials.hub
+  value: true
+weight: 0
+metadata:
+  prefix: ''
+  suffix: ''

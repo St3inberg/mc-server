@@ -1,0 +1,279 @@
+# BedWars2023 by Mr. Ceasar.
+# Documentation here: https://wiki.tomkeuper.com/docs/BedWars2023
+
+timeZone: Europe/Rome
+serverType: MULTIARENA
+language: en
+disabled-languages:
+- your language iso here
+storeLink: https://example.com/
+enable-halloween-feature: true
+golden-gg-feature:
+  enable: true
+  color: GOLD
+auto-gg-feature:
+  enable: true
+  text: FORMATTING_CHAT_TEAM
+enable-anti-drop-feature: true
+hologram-update-distance: 50
+enable-teammate-tracking-action-bar: false
+click-in-chest-to-deposit-feature:
+  enable: false
+  blocked-items:
+  - WOODEN_SWORD
+  - SHEARS
+  - COMPASS
+chat-settings:
+  global: false
+  format: true
+debug: false
+mark-leave-as-abandon: false
+party-settings:
+  enable-party-cmd: true
+  allow-parties: true
+  alessioDP-choose-arena-rank: 10
+scoreboard-settings:
+  player-name: '%bw_playername%'
+  tab-name-formatting-enable: false
+  scoreboard:
+    enable-lobby-scoreboard: false
+    enable-game-scoreboard: true
+    title-refresh-interval: 200
+    placeholders-refresh-interval: 200
+    prefix-refresh-interval: 8000
+    suffix-refresh-interval: 100
+  player-list:
+    format-lobby-list: false
+    format-waiting-list: false
+    format-starting-list: false
+    format-playing-list: true
+    format-restarting-list: true
+rejoin-time: 0
+re-spawn-invulnerability: 4000
+in-game-announcement:
+  enable: true
+  cooldown: 300
+bungeecord-settings:
+  games-before-restart: 30
+  restart-cmd: restart
+  auto-scale-clone-limit: 5
+  redis-configuration:
+    host: localhost
+    port: 6379
+    password: StrongRedisPassword1
+    channel: bw2023
+  lobby-server: hub
+  server-id: bw1
+  bwp-time-out: 5000
+  cloudnet-support: false
+countdowns:
+  game-start-regular: 40
+  game-start-half-arena: 25
+  game-start-shortened: 5
+  game-restart: 15
+  player-re-spawn: 5
+  player-rejoin-re-spawn: 10
+  next-event-beds-destroy: 360
+  next-event-dragon-spawn: 600
+  next-event-game-end: 120
+shout-cmd-cooldown: 30
+server-ip: yourServer.Com
+allow-hunger-depletion:
+  waiting: false
+  ingame: false
+allow-fire-extinguish: true
+performance-settings:
+  heal-pool:
+    enable: true
+    seen-by-team-only: true
+  rotate-generators: true
+  hologram-update-rate: 5
+  spoil-tnt-players: true
+  split-island-generator: true
+  paper-features: true
+tnt-jump-settings:
+  strength-reduction-constant: 5
+  y-axis-reduction-constant: 2
+  knockback-horizontal-forgiveness: 1.2
+  damage-self: 1
+  damage-teammates: 5
+  damage-others: 10
+blast-protection:
+  end-stone: 12.0
+  glass: 300.0
+tnt-prime-settings:
+  auto-ignite: true
+  fuse-ticks: 45
+fireball:
+  explosion-size: 3
+  speed-multiplier: 10
+  make-fire: false
+  knockback:
+    horizontal:
+      self: 1.0
+      others: 1.0
+    vertical:
+      self: 0.65
+      others: 0.65
+  jump-tolerance: 0.5
+  cooldown: 0.5
+  damage:
+    self: 2.0
+    enemy: 2.0
+    teammates: 0.0
+  explosion-proof-blocks:
+  - END_STONE
+  - OBSIDIAN
+eggbridge-settings:
+  distance-from-player-to-start-building: 4.0
+  max-length: 27
+  max-height: 9
+  when-used-close-to-build-limit:
+    distance-to-max-build-limit: 5
+    distance-to-min-build-limit: 3
+    send-warn-message: false
+    cancel-usage: false
+database:
+  type: SQLite
+  host: localhost
+  port: 3306
+  database: bedwars2023
+  user: root
+  pass: cheese
+  ssl: false
+  verify-certificate: true
+  pool-size: 10
+  max-lifetime: 1800
+enable-footsteps-on-invisibility: true
+inventories:
+  disable-crafting-table: true
+  disable-enchanting-table: true
+  disable-furnace: true
+  disable-brewing-stand: true
+  disable-anvil: true
+disable-shout-solo: false
+lobby-items:
+  stats:
+    material: PLAYER_HEAD
+    data: 3
+    enchanted: false
+    slot: 0
+  arena-selector:
+    command: bw gui
+    material: CHEST
+    data: 5
+    enchanted: true
+    slot: 4
+  leave:
+    material: RED_BED
+    data: 0
+    enchanted: false
+    slot: 8
+pre-game-items:
+  stats:
+    material: PLAYER_HEAD
+    data: 3
+    enchanted: false
+    slot: 0
+  leave:
+    leave-delay: 3
+    material: RED_BED
+    data: 0
+    enchanted: false
+    slot: 8
+spectator-items:
+  teleporter:
+    command: bw teleporter
+    material: PLAYER_HEAD
+    data: 3
+    enchanted: false
+    slot: 0
+  leave:
+    leave-delay: 3
+    material: RED_BED
+    data: 0
+    enchanted: false
+    slot: 8
+arena-gui:
+  settings:
+    inv-size: 27
+    show-playing: true
+    use-slots: 10,11,12,13,14,15,16
+  waiting:
+    material: LIME_CONCRETE
+    data: 5
+    enchanted: false
+  starting:
+    material: YELLOW_CONCRETE
+    data: 4
+    enchanted: true
+  playing:
+    material: RED_CONCRETE
+    data: 14
+    enchanted: false
+  skipped-slot:
+    material: BLACK_STAINED_GLASS_PANE
+    data: 15
+    enchanted: false
+teleporter-gui:
+  settings:
+    inv-size: 36
+    use-slots: 10,11,12,13,14,15,16,19,20,21,22,23,24,25
+start-items-per-group:
+  Default:
+  - WOODEN_SWORD
+allowed-commands:
+- shout
+- bw
+- leave
+use-experimental-team-assigner: true
+lobby-settings:
+  void-tp: true
+  void-height: 0
+stats-gui:
+  inv-size: 27
+  wins:
+    material: DIAMOND
+    data: 0
+    slot: 10
+  losses:
+    material: REDSTONE
+    data: 0
+    slot: 11
+  kills:
+    material: IRON_SWORD
+    data: 0
+    slot: 12
+  deaths:
+    material: SKELETON_SKULL
+    data: 0
+    slot: 13
+  final-kills:
+    material: DIAMOND_SWORD
+    data: 0
+    slot: 14
+  final-deaths:
+    material: SKELETON_SKULL
+    data: 1
+    slot: 15
+  beds-destroyed:
+    material: RED_BED
+    data: 0
+    slot: 16
+  first-play:
+    material: BLACK_STAINED_GLASS_PANE
+    data: 0
+    slot: 21
+  games-played:
+    material: CHEST
+    data: 0
+    slot: 22
+  last-play:
+    material: BLACK_STAINED_GLASS_PANE
+    data: 0
+    slot: 23
+shop:
+  migration:
+    legacyIdMigrationOnStartup: true
+    quickBuyTableMigrated: true
+    latestVersion: 1

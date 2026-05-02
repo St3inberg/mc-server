@@ -1,0 +1,21 @@
+_DEFAULT_:
+  tabprefix: "%luckperms-prefix%"
+  tagprefix: "%luckperms-prefix%"
+  customtabname: "%player%"
+  tabsuffix: "%luckperms-suffix%"
+  tagsuffix: "%luckperms-suffix%"
+owner:
+  tabprefix: "&4&l[Owner] &r"
+  tagprefix: "&4&l[Owner] &4"
+mvp:
+  tabprefix: "&3[MVP] &r"
+  tagprefix: "&3[MVP] &3"
+vip_plus:
+  tabprefix: "&b[VIP+] &r"
+  tagprefix: "&b[VIP+] &b"
+vip:
+  tabprefix: "&a[VIP] &r"
+  tagprefix: "&a[VIP] &a"
+default:
+  tabprefix: ""
+  tagprefix: "&7"
