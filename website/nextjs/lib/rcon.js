@@ -73,7 +73,7 @@ export async function applyPerks(purchaseId, minecraftUsername, commands) {
 
 export async function flushQueue() {
   const pending = db.prepare(
-    'SELECT * FROM command_queue WHERE executed = 0 AND attempts < 10 ORDER BY created_at ASC'
+    'SELECT * FROM command_queue WHERE executed = 0 AND attempts < 50 ORDER BY created_at ASC'
   ).all();
 
   for (const item of pending) {
